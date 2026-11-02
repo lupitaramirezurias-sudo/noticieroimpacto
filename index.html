@@ -177,6 +177,11 @@ button.st:hover{background:rgba(255,255,255,.22)}
 .st.playing{background:rgba(255,255,255,.3);outline:2px solid var(--gold)}
 .st.playing .pp::before{left:11px;top:10px;width:4px;height:14px;border:0;background:var(--red);box-shadow:8px 0 0 var(--red)}
 .playbig.playing::before{width:6px;height:20px;border:0;background:#fff;box-shadow:10px 0 0 #fff;margin-left:-10px}
+.hplay{background:none;border:0;padding:0;cursor:pointer}
+.chips{display:flex;gap:6px;margin-top:4px}
+.chip{font-family:var(--head);font-weight:800;font-size:.8rem;border:2px solid var(--red);background:#fff;color:var(--red);border-radius:999px;padding:3px 10px;cursor:pointer}
+.chip:hover{background:#FBE9E5}
+.chip.on{background:var(--red);color:#fff}
 </style>
 </head>
 <body>
@@ -186,7 +191,7 @@ button.st:hover{background:rgba(255,255,255,.22)}
 </div></div>
 
 <header class="masthead"><div class="wrap">
-  <button class="mh-left" type="button" id="hdrplay" data-st="0"><span class="playbig" aria-hidden="true"></span><span><b id="hdrlbl">¡Escúchanos en vivo!</b><small>100.9 · 101.7 · 100.1 FM</small></span></button>
+  <div class="mh-left"><button class="hplay" type="button" id="hdrplay" aria-label="Escuchar en vivo"><span class="playbig" aria-hidden="true"></span></button><span><b id="hdrlbl">¡Escúchanos en vivo!</b><span class="chips" role="group" aria-label="Elige estación"><button type="button" class="chip" data-st="0">100.9</button><button type="button" class="chip" data-st="1">101.7</button><button type="button" class="chip" data-st="2">100.1</button></span></span></div>
   <a class="logo" href="#inicio" id="inicio"><img src="img/logo-bm-radio.png" alt="BM Radio"><span class="name">Noticiero <span>Impacto</span><small>BM Radio Ojinaga</small></span></a>
   <div class="mh-right"><span class="live" id="live"><span class="dot" aria-hidden="true"></span><span id="livetxt">Próxima emisión</span></span><span class="freq" id="livewhen">Lun a sáb · 7:00 y 13:00</span></div>
 </div></header>
@@ -329,6 +334,7 @@ button.st:hover{background:rgba(255,255,255,.22)}
   var SRC=['https://stream-283.surfernetwork.com/069xrm8ub84tv', 'https://stream-283.surfernetwork.com/sugfd4mza84tv', 'https://stream-283.surfernetwork.com/g0fffb5ub84tv'],NAMES=['La Poderosa 100.9','La Primera 101.7','100.1 FM'];
   var pl=document.getElementById('player'),cur=-1,ps=document.getElementById('pstatus'),hb=document.querySelector('#hdrplay .playbig'),hl=document.getElementById('hdrlbl');
   function ui(){document.querySelectorAll('button.st').forEach(function(b){b.classList.toggle('playing',+b.dataset.st===cur&&!pl.paused)});
+    document.querySelectorAll('.chip').forEach(function(b){b.classList.toggle('on',+b.dataset.st===cur&&!pl.paused)});
     var on=cur>=0&&!pl.paused;hb.classList.toggle('playing',on);hl.textContent=on?'Escuchando '+NAMES[cur]:'¡Escúchanos en vivo!'}
   function play(i){if(i===cur&&!pl.paused){pl.pause();ps.textContent='En pausa.';ui();return}
     if(i!==cur){pl.src=SRC[i];cur=i}ps.textContent='Conectando con '+NAMES[i]+'…';
@@ -336,7 +342,7 @@ button.st:hover{background:rgba(255,255,255,.22)}
   pl.addEventListener('playing',function(){ps.textContent='En vivo: '+NAMES[cur];ui()});
   pl.addEventListener('pause',ui);
   pl.addEventListener('error',function(){ps.textContent='La transmisión de '+NAMES[cur]+' no está disponible ahorita.';ui()});
-  document.querySelectorAll('button.st').forEach(function(b){b.addEventListener('click',function(){play(+b.dataset.st)})});
+  document.querySelectorAll('button.st,.chip').forEach(function(b){b.addEventListener('click',function(){play(+b.dataset.st)})});
   document.getElementById('hdrplay').addEventListener('click',function(){play(cur>=0?cur:0)});
 
   // Compartir
