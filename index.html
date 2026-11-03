@@ -379,7 +379,7 @@ button.st:hover{background:rgba(255,255,255,.22)}
 
 
   // Reproductor en vivo
-  var SRC=['https://stream-283.surfernetwork.com/sugfd4mza84tv', 'https://stream-283.surfernetwork.com/069xrm8ub84tv', 'https://stream-283.surfernetwork.com/g0fffb5ub84tv'],NAMES=['La Poderosa 100.9','La Primera 101.7','100.1 FM'];
+  var SRC=['https://stream-283.surfernetwork.com/sugfd4mza84tv', 'https://stream-283.surfernetwork.com/g0fffb5ub84tv', 'https://stream-283.surfernetwork.com/069xrm8ub84tv'],NAMES=['La Poderosa 100.9','La Primera 101.7','100.1 FM'];
   var pl=document.getElementById('player'),cur=-1,ps=document.getElementById('pstatus'),hb=document.querySelector('#hdrplay .playbig'),hl=document.getElementById('hdrlbl');
   function ui(){document.querySelectorAll('button.st').forEach(function(b){b.classList.toggle('playing',+b.dataset.st===cur&&!pl.paused)});
     document.querySelectorAll('.chip').forEach(function(b){b.classList.toggle('on',+b.dataset.st===cur&&!pl.paused)});
