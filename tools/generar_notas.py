@@ -213,6 +213,8 @@ document.querySelectorAll('.share').forEach(function(s){{
     for f in sorted(os.listdir("notas")):
         if f.endswith(".html"):
             urls.append(f"  <url><loc>{SITE}/notas/{f}</loc><lastmod>{d}</lastmod><priority>0.8</priority></url>")
+    if os.path.exists("privacidad.html"):
+        urls.append(f"  <url><loc>{SITE}/privacidad.html</loc><lastmod>{d}</lastmod><priority>0.3</priority></url>")
     open("sitemap.xml", "w", encoding="utf-8").write(
         '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
         + "\n".join(urls) + "\n</urlset>\n")
