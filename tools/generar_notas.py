@@ -169,7 +169,7 @@ def main():
     </ul>
   </section>
 </main>
-<footer><div class="wrap"><span><img src="../img/logo-bm-radio.png" alt="">BM Radio · Noticiero Impacto · Ojinaga, Chihuahua</span><span>100.9 · 101.7 · 100.1 FM</span></div></footer>
+<footer><div class="wrap"><span><img src="../img/logo-bm-radio.png" alt="">BM Radio · Noticiero Impacto · Ojinaga, Chihuahua</span><span><a href="../codigo-de-etica.html">Código de Ética</a> · 100.9 · 101.7 · 100.1 FM</span></div></footer>
 <script>
 document.querySelectorAll('.share').forEach(function(s){{
   var u=s.dataset.url,t=s.dataset.title+' | Noticiero Impacto BM Radio';
@@ -214,6 +214,8 @@ document.querySelectorAll('.share').forEach(function(s){{
     for f in sorted(os.listdir("notas")):
         if f.endswith(".html"):
             urls.append(f"  <url><loc>{SITE}/notas/{f}</loc><lastmod>{d}</lastmod><priority>0.8</priority></url>")
+    if os.path.exists("codigo-de-etica.html"):
+        urls.append(f"  <url><loc>{SITE}/codigo-de-etica.html</loc><lastmod>{d}</lastmod><priority>0.4</priority></url>")
     if os.path.exists("privacidad.html"):
         urls.append(f"  <url><loc>{SITE}/privacidad.html</loc><lastmod>{d}</lastmod><priority>0.3</priority></url>")
     open("sitemap.xml", "w", encoding="utf-8").write(
